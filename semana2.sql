@@ -1,8 +1,3 @@
-DROP TABLE IF EXISTS instructor_competency;
-DROP TABLE IF EXISTS competencies;
-DROP TABLE IF EXISTS instructors;
-DROP TABLE IF EXISTS apprentices;
-DROP TABLE IF EXISTS programs;
 
 -- ============================================
 -- TABLA PROGRAMS
@@ -63,7 +58,7 @@ CREATE TABLE IF NOT EXISTS instructor_competency (
 );
 
 -- ============================================
--- INSERTS (REQUERIDO POR EL PROFESOR)
+-- INSERTS 
 -- ============================================
 
 -- PROGRAMS (15 registros)
@@ -108,10 +103,3 @@ INSERT INTO competencies VALUES
 (4, 'Programming Logic', 'Logic for coding', 10),
 (5, 'Cybersecurity Basics', 'Security fundamentals', 4);
 
--- RELACIÓN INSTRUCTOR - COMPETENCY
-INSERT INTO instructor_competency VALUES
-(1, 1),
-(1, 4),
-(2, 2),
-(3, 3),
-(4, 5);
