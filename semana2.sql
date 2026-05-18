@@ -46,18 +46,6 @@ CREATE TABLE IF NOT EXISTS competencies (
 );
 
 -- ============================================
--- TABLA RELACIÓN
--- ============================================
-
-CREATE TABLE IF NOT EXISTS instructor_competency (
-    instructor_id INTEGER NOT NULL,
-    competency_id INTEGER NOT NULL,
-    PRIMARY KEY (instructor_id, competency_id),
-    FOREIGN KEY (instructor_id) REFERENCES instructors(id),
-    FOREIGN KEY (competency_id) REFERENCES competencies(id)
-);
-
--- ============================================
 -- INSERTS 
 -- ============================================
 
