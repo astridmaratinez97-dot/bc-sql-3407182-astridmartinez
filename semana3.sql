@@ -1,4 +1,9 @@
-DROP TABLE IF EXISTS enrollments;
+-- ============================================
+-- ELIMINAR TABLAS SI EXISTEN
+-- ============================================
+
+DROP TABLE IF EXISTS competencies;
+DROP TABLE IF EXISTS instructors;
 DROP TABLE IF EXISTS apprentices;
 DROP TABLE IF EXISTS programs;
 
@@ -6,31 +11,43 @@ DROP TABLE IF EXISTS programs;
 -- CREACIÓN DE TABLAS
 -- ============================================
 
-CREATE TABLE IF NOT EXISTS apprentices (
-    id           INTEGER PRIMARY KEY,
-    first_name   TEXT    NOT NULL,
-    last_name    TEXT    NOT NULL,
-    age          INTEGER NOT NULL CHECK(age >= 16),
-    email        TEXT    NOT NULL UNIQUE,
-    is_active    INTEGER NOT NULL DEFAULT 1
-);
+-- TABLA PROGRAMS
 
 CREATE TABLE IF NOT EXISTS programs (
-    id                 INTEGER PRIMARY KEY,
-    program_name       TEXT    NOT NULL UNIQUE,
-    duration_months    INTEGER NOT NULL CHECK(duration_months > 0),
-    level              TEXT    NOT NULL,
-    is_active          INTEGER NOT NULL DEFAULT 1
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    level TEXT NOT NULL DEFAULT 'technician',
+    duration_months INTEGER NOT NULL CHECK (duration_months > 0)
 );
 
-CREATE TABLE IF NOT EXISTS enrollments (
-    id               INTEGER PRIMARY KEY,
-    apprentice_id    INTEGER NOT NULL,
-    program_id       INTEGER NOT NULL,
-    enrollment_date  TEXT    NOT NULL,
-    status           TEXT    NOT NULL DEFAULT 'active',
+-- TABLA APPRENTICES
 
-    FOREIGN KEY (apprentice_id) REFERENCES apprentices(id),
+CREATE TABLE IF NOT EXISTS apprentices (
+    id INTEGER PRIMARY KEY,
+    full_name TEXT NOT NULL,
+    age INTEGER NOT NULL CHECK (age >= 16),
+    email TEXT NOT NULL UNIQUE,
+    is_active INTEGER NOT NULL DEFAULT 1,
+    program_id INTEGER NOT NULL,
+    FOREIGN KEY (program_id) REFERENCES programs(id)
+);
+
+-- TABLA INSTRUCTORS
+
+CREATE TABLE IF NOT EXISTS instructors (
+    id INTEGER PRIMARY KEY,
+    full_name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    specialty TEXT NOT NULL
+);
+
+-- TABLA COMPETENCIES
+
+CREATE TABLE IF NOT EXISTS competencies (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    program_id INTEGER NOT NULL,
     FOREIGN KEY (program_id) REFERENCES programs(id)
 );
 
@@ -38,110 +55,163 @@ CREATE TABLE IF NOT EXISTS enrollments (
 -- PARTE 1: INSERT INTO
 -- ============================================
 
--- Insertar aprendices
-
-INSERT INTO apprentices (
-    id,
-    first_name,
-    last_name,
-    age,
-    email
-)
-VALUES
-(1,  'Julieta', 'Kim',       18, 'julieta@sena.edu.co'),
-(2,  'Juan',    'Lopez',     20, 'juan@sena.edu.co'),
-(3,  'Maria',   'Gomez',     19, 'maria@sena.edu.co'),
-(4,  'Carlos',  'Perez',     22, 'carlos@sena.edu.co'),
-(5,  'Laura',   'Ramirez',   21, 'laura@sena.edu.co'),
-(6,  'Andres',  'Torres',    23, 'andres@sena.edu.co'),
-(7,  'Camila',  'Rodriguez', 18, 'camila@sena.edu.co'),
-(8,  'Sofia',   'Martinez',  20, 'sofia@sena.edu.co'),
-(9,  'Daniel',  'Hernandez', 24, 'daniel@sena.edu.co'),
-(10, 'Valeria', 'Castro',    19, 'valeria@sena.edu.co'),
-(11, 'Sebastian','Ruiz',     21, 'sebastian@sena.edu.co'),
-(12, 'Paula',   'Moreno',    22, 'paula@sena.edu.co'),
-(13, 'Miguel',  'Vargas',    20, 'miguel@sena.edu.co'),
-(14, 'Isabella','Rojas',     18, 'isabella@sena.edu.co'),
-(15, 'David',   'Fernandez', 25, 'david@sena.edu.co');
-
--- Insertar programas
+-- INSERTAR PROGRAMS
 
 INSERT INTO programs (
     id,
-    program_name,
-    duration_months,
-    level
+    name,
+    level,
+    duration_months
 )
 VALUES
-(1, 'Software Analysis', 24, 'Technologist'),
-(2, 'Database Management', 18, 'Technician'),
-(3, 'Web Development', 24, 'Technologist'),
-(4, 'Cybersecurity', 36, 'Technologist'),
-(5, 'Mobile Development', 20, 'Technician');
+(1, 'Software Analysis', 'technologist', 24),
+(2, 'Database Management', 'technician', 18),
+(3, 'Web Development', 'technologist', 24),
+(4, 'Cybersecurity', 'technologist', 36),
+(5, 'Mobile Development', 'technician', 20),
+(6, 'Cloud Computing', 'technologist', 30),
+(7, 'Artificial Intelligence', 'technologist', 36),
+(8, 'Network Administration', 'technician', 24),
+(9, 'Software Testing', 'technician', 18),
+(10, 'UI UX Design', 'technician', 18),
+(11, 'DevOps Engineering', 'technologist', 30),
+(12, 'Data Analysis', 'technician', 24),
+(13, 'Game Development', 'technician', 20),
+(14, 'Digital Marketing', 'technician', 18),
+(15, 'IT Support', 'technician', 12);
 
--- Insertar matrículas respetando FK
+-- INSERTAR APPRENTICES
 
-INSERT INTO enrollments (
+INSERT INTO apprentices (
     id,
-    apprentice_id,
-    program_id,
-    enrollment_date,
-    status
+    full_name,
+    age,
+    email,
+    is_active,
+    program_id
 )
 VALUES
-(1, 1, 1, '2026-05-01', 'active'),
-(2, 2, 2, '2026-05-02', 'active'),
-(3, 3, 3, '2026-05-03', 'completed'),
-(4, 4, 4, '2026-05-04', 'active'),
-(5, 5, 5, '2026-05-05', 'cancelled');
+(1, 'Alexander Ospina', 18, 'alex@sena.edu.co', 1, 1),
+(2, 'Juan Lopez', 20, 'juan@sena.edu.co', 1, 2),
+(3, 'Maria Gomez', 19, 'maria@sena.edu.co', 1, 3),
+(4, 'Carlos Perez', 22, 'carlos@sena.edu.co', 1, 4),
+(5, 'Laura Ramirez', 21, 'laura@sena.edu.co', 1, 5),
+(6, 'Andres Torres', 23, 'andres@sena.edu.co', 1, 6),
+(7, 'Camila Rodriguez', 18, 'camila@sena.edu.co', 1, 7),
+(8, 'Sofia Martinez', 20, 'sofia@sena.edu.co', 1, 8),
+(9, 'Daniel Hernandez', 24, 'daniel@sena.edu.co', 1, 9),
+(10, 'Valeria Castro', 19, 'valeria@sena.edu.co', 1, 10),
+(11, 'Sebastian Ruiz', 21, 'sebastian@sena.edu.co', 1, 11),
+(12, 'Paula Moreno', 22, 'paula@sena.edu.co', 1, 12),
+(13, 'Miguel Vargas', 20, 'miguel@sena.edu.co', 1, 13),
+(14, 'Isabella Rojas', 18, 'isabella@sena.edu.co', 1, 14),
+(15, 'David Fernandez', 25, 'david@sena.edu.co', 1, 15);
+
+-- INSERTAR INSTRUCTORS
+
+INSERT INTO instructors (
+    id,
+    full_name,
+    email,
+    specialty
+)
+VALUES
+(1, 'Pedro Ruiz', 'pedro@sena.edu.co', 'SQL'),
+(2, 'Laura Martinez', 'laura@sena.edu.co', 'Web Development'),
+(3, 'Andres Silva', 'andres.silva@sena.edu.co', 'Cybersecurity'),
+(4, 'Sofia Castro', 'sofia.castro@sena.edu.co', 'Cloud Computing'),
+(5, 'Jorge Rios', 'jorge.rios@sena.edu.co', 'Artificial Intelligence');
+
+-- INSERTAR COMPETENCIES
+
+INSERT INTO competencies (
+    id,
+    name,
+    description,
+    program_id
+)
+VALUES
+(1, 'SQL Basics', 'Introduction to SQL queries and databases', 2),
+(2, 'Frontend Development', 'HTML CSS and JavaScript basics', 3),
+(3, 'Network Security', 'Security principles for networks', 4),
+(4, 'Cloud Services', 'Cloud platforms and deployment', 6),
+(5, 'Machine Learning', 'Introduction to artificial intelligence models', 7);
 
 -- ============================================
 -- PARTE 2: UPDATE
 -- ============================================
 
--- Actualizar edad del aprendiz con id 1
+-- ACTUALIZAR UNA FILA ESPECÍFICA
 
 UPDATE apprentices
 SET age = 19
 WHERE id = 1;
 
--- Actualizar múltiples columnas de un programa
+-- ACTUALIZAR MÚLTIPLES COLUMNAS
 
 UPDATE programs
-SET program_name = 'Advanced Web Development',
+SET name = 'Advanced Web Development',
     duration_months = 30
 WHERE id = 3;
 
--- Actualizar múltiples filas por condición
+-- ACTUALIZAR MÚLTIPLES FILAS
 
-UPDATE enrollments
-SET status = 'inactive'
-WHERE status = 'cancelled';
+UPDATE apprentices
+SET is_active = 0
+WHERE age >= 24;
 
 -- ============================================
 -- PARTE 3: DELETE SEGURO
 -- ============================================
 
--- Verificar qué matrícula será eliminada
+-- VERIFICAR QUÉ FILAS SERÁN ELIMINADAS
 
-SELECT id, status
-FROM enrollments
-WHERE id = 5;
+SELECT
+    id,
+    full_name,
+    age
+FROM apprentices
+WHERE is_active = 0;
 
--- Eliminar matrícula cancelada
+-- ELIMINAR FILAS INACTIVAS
 
-DELETE FROM enrollments
-WHERE id = 5;
+DELETE FROM apprentices
+WHERE is_active = 0;
 
 -- ============================================
 -- VERIFICACIÓN FINAL
 -- ============================================
 
-SELECT * FROM apprentices
+SELECT
+    id,
+    name,
+    level,
+    duration_months
+FROM programs
 ORDER BY id;
 
-SELECT * FROM programs
+SELECT
+    id,
+    full_name,
+    age,
+    email,
+    is_active,
+    program_id
+FROM apprentices
 ORDER BY id;
 
-SELECT * FROM enrollments
+SELECT
+    id,
+    full_name,
+    email,
+    specialty
+FROM instructors
+ORDER BY id;
+
+SELECT
+    id,
+    name,
+    description,
+    program_id
+FROM competencies
 ORDER BY id;
