@@ -8,6 +8,13 @@ CREATE TABLE programs (
     duration INTEGER
 );
 
+-- ============================================
+-- ELIMINAR TABLAS SI EXISTEN
+-- ============================================
+DROP TABLE IF EXISTS apprentices;
+DROP TABLE IF EXISTS programs;
+
+
 CREATE TABLE apprentices (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
