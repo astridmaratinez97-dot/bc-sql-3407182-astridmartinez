@@ -1,4 +1,11 @@
+-- ============================================
+-- ELIMINAR TABLAS
+-- ============================================
 
+DROP TABLE IF EXISTS competencies;
+DROP TABLE IF EXISTS instructors;
+DROP TABLE IF EXISTS apprentices;
+DROP TABLE IF EXISTS programs;
 -- ============================================
 -- TABLA PROGRAMS
 -- ============================================
