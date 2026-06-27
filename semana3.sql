@@ -8,10 +8,8 @@ DROP TABLE IF EXISTS apprentices;
 DROP TABLE IF EXISTS programs;
 
 -- ============================================
--- CREACIÓN DE TABLAS
--- ============================================
-
 -- TABLA PROGRAMS
+-- ============================================
 
 CREATE TABLE IF NOT EXISTS programs (
     id INTEGER PRIMARY KEY,
@@ -20,42 +18,46 @@ CREATE TABLE IF NOT EXISTS programs (
     duration_months INTEGER NOT NULL CHECK (duration_months > 0)
 );
 
+-- ============================================
 -- TABLA APPRENTICES
+-- ============================================
 
 CREATE TABLE IF NOT EXISTS apprentices (
     id INTEGER PRIMARY KEY,
     full_name TEXT NOT NULL,
-    age INTEGER NOT NULL CHECK (age >= 16),
     email TEXT NOT NULL UNIQUE,
     is_active INTEGER NOT NULL DEFAULT 1,
-    program_id INTEGER NOT NULL,
-    FOREIGN KEY (program_id) REFERENCES programs(id)
+    program_id INTEGER,
+    FOREIGN KEY (program_id)
+        REFERENCES programs(id)
 );
 
+-- ============================================
 -- TABLA INSTRUCTORS
+-- ============================================
 
 CREATE TABLE IF NOT EXISTS instructors (
     id INTEGER PRIMARY KEY,
     full_name TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE,
-    specialty TEXT NOT NULL
+    email TEXT NOT NULL UNIQUE
 );
 
+-- ============================================
 -- TABLA COMPETENCIES
+-- ============================================
 
 CREATE TABLE IF NOT EXISTS competencies (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
-    description TEXT NOT NULL,
+    description TEXT,
     program_id INTEGER NOT NULL,
-    FOREIGN KEY (program_id) REFERENCES programs(id)
+    FOREIGN KEY (program_id)
+        REFERENCES programs(id)
 );
 
 -- ============================================
--- PARTE 1: INSERT INTO
+-- INSERTS
 -- ============================================
-
--- INSERTAR PROGRAMS
 
 INSERT INTO programs (
     id,
@@ -64,154 +66,65 @@ INSERT INTO programs (
     duration_months
 )
 VALUES
-(1, 'Software Analysis', 'technologist', 24),
-(2, 'Database Management', 'technician', 18),
-(3, 'Web Development', 'technologist', 24),
-(4, 'Cybersecurity', 'technologist', 36),
-(5, 'Mobile Development', 'technician', 20),
-(6, 'Cloud Computing', 'technologist', 30),
-(7, 'Artificial Intelligence', 'technologist', 36),
-(8, 'Network Administration', 'technician', 24),
-(9, 'Software Testing', 'technician', 18),
-(10, 'UI UX Design', 'technician', 18),
-(11, 'DevOps Engineering', 'technologist', 30),
-(12, 'Data Analysis', 'technician', 24),
-(13, 'Game Development', 'technician', 20),
-(14, 'Digital Marketing', 'technician', 18),
-(15, 'IT Support', 'technician', 12);
+(1,'Software Analysis','technician',24),
+(2,'Database Management','technician',18),
+(3,'Web Development','technician',24),
+(4,'Cybersecurity','technologist',36),
+(5,'Mobile Development','technician',20),
+(6,'AI Basics','technologist',30),
+(7,'Cloud Computing','technologist',30),
+(8,'Data Analysis','technician',18),
+(9,'Networking','technician',24),
+(10,'Programming Logic','technician',12),
+(11,'UI/UX Design','technician',18),
+(12,'Software Testing','technician',18),
+(13,'DevOps Basics','technologist',30),
+(14,'Game Development','technician',24),
+(15,'IT Support','technician',12);
 
--- INSERTAR APPRENTICES
-
-INSERT INTO apprentices (
-    id,
-    full_name,
-    age,
-    email,
-    is_active,
-    program_id
-)
+INSERT INTO apprentices
 VALUES
-(1, 'Alexander Ospina', 18, 'alex@sena.edu.co', 1, 1),
-(2, 'Juan Lopez', 20, 'juan@sena.edu.co', 1, 2),
-(3, 'Maria Gomez', 19, 'maria@sena.edu.co', 1, 3),
-(4, 'Carlos Perez', 22, 'carlos@sena.edu.co', 1, 4),
-(5, 'Laura Ramirez', 21, 'laura@sena.edu.co', 1, 5),
-(6, 'Andres Torres', 23, 'andres@sena.edu.co', 1, 6),
-(7, 'Camila Rodriguez', 18, 'camila@sena.edu.co', 1, 7),
-(8, 'Sofia Martinez', 20, 'sofia@sena.edu.co', 1, 8),
-(9, 'Daniel Hernandez', 24, 'daniel@sena.edu.co', 1, 9),
-(10, 'Valeria Castro', 19, 'valeria@sena.edu.co', 1, 10),
-(11, 'Sebastian Ruiz', 21, 'sebastian@sena.edu.co', 1, 11),
-(12, 'Paula Moreno', 22, 'paula@sena.edu.co', 1, 12),
-(13, 'Miguel Vargas', 20, 'miguel@sena.edu.co', 1, 13),
-(14, 'Isabella Rojas', 18, 'isabella@sena.edu.co', 1, 14),
-(15, 'David Fernandez', 25, 'david@sena.edu.co', 1, 15);
+(1,'Juan Perez','juan@example.com',1,1),
+(2,'Maria Lopez','maria@example.com',1,2),
+(3,'Carlos Diaz','carlos@example.com',1,3),
+(4,'Ana Gomez','ana@example.com',1,4),
+(5,'Luis Torres','luis@example.com',1,5);
 
--- INSERTAR INSTRUCTORS
-
-INSERT INTO instructors (
-    id,
-    full_name,
-    email,
-    specialty
-)
+INSERT INTO instructors
 VALUES
-(1, 'Pedro Ruiz', 'pedro@sena.edu.co', 'SQL'),
-(2, 'Laura Martinez', 'laura@sena.edu.co', 'Web Development'),
-(3, 'Andres Silva', 'andres.silva@sena.edu.co', 'Cybersecurity'),
-(4, 'Sofia Castro', 'sofia.castro@sena.edu.co', 'Cloud Computing'),
-(5, 'Jorge Rios', 'jorge.rios@sena.edu.co', 'Artificial Intelligence');
+(1,'Pedro Ruiz','pedro@example.com'),
+(2,'Laura Martinez','laura@example.com'),
+(3,'Andres Silva','andres@example.com'),
+(4,'Sofia Castro','sofia@example.com'),
+(5,'Jorge Rios','jorge@example.com');
 
--- INSERTAR COMPETENCIES
-
-INSERT INTO competencies (
-    id,
-    name,
-    description,
-    program_id
-)
+INSERT INTO competencies
 VALUES
-(1, 'SQL Basics', 'Introduction to SQL queries and databases', 2),
-(2, 'Frontend Development', 'HTML CSS and JavaScript basics', 3),
-(3, 'Network Security', 'Security principles for networks', 4),
-(4, 'Cloud Services', 'Cloud platforms and deployment', 6),
-(5, 'Machine Learning', 'Introduction to artificial intelligence models', 7);
+(1,'SQL Basics','Basic SQL queries',2),
+(2,'HTML & CSS','Frontend basics',3),
+(3,'Networking Fundamentals','Network basics',9),
+(4,'Programming Logic','Logic for coding',10),
+(5,'Cybersecurity Basics','Security fundamentals',4);
 
 -- ============================================
--- PARTE 2: UPDATE
+-- UPDATE
 -- ============================================
 
--- ACTUALIZAR UNA FILA ESPECÍFICA
-
-UPDATE apprentices
-SET age = 19
-WHERE id = 1;
-
--- ACTUALIZAR MÚLTIPLES COLUMNAS
-
-UPDATE programs
-SET name = 'Advanced Web Development',
-    duration_months = 30
-WHERE id = 3;
-
--- ACTUALIZAR MÚLTIPLES FILAS
+-- actualizar una fila
 
 UPDATE apprentices
 SET is_active = 0
-WHERE age >= 24;
+WHERE id = 5;
+
+-- actualizar múltiples filas
+
+UPDATE programs
+SET level = 'technologist'
+WHERE duration_months >= 30;
 
 -- ============================================
--- PARTE 3: DELETE SEGURO
+-- DELETE
 -- ============================================
-
--- VERIFICAR QUÉ FILAS SERÁN ELIMINADAS
-
-SELECT
-    id,
-    full_name,
-    age
-FROM apprentices
-WHERE is_active = 0;
-
--- ELIMINAR FILAS INACTIVAS
 
 DELETE FROM apprentices
-WHERE is_active = 0;
-
--- ============================================
--- VERIFICACIÓN FINAL
--- ============================================
-
-SELECT
-    id,
-    name,
-    level,
-    duration_months
-FROM programs
-ORDER BY id;
-
-SELECT
-    id,
-    full_name,
-    age,
-    email,
-    is_active,
-    program_id
-FROM apprentices
-ORDER BY id;
-
-SELECT
-    id,
-    full_name,
-    email,
-    specialty
-FROM instructors
-ORDER BY id;
-
-SELECT
-    id,
-    name,
-    description,
-    program_id
-FROM competencies
-ORDER BY id;
+WHERE id = 5;
