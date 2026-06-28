@@ -16,15 +16,18 @@ Organización de estructuras de datos.
 Identificación de entidades y atributos.
 Definición de relaciones conceptuales.
 Comprensión del modelo relacional.
+
 🧠 Buenas prácticas aplicadas
 Uso de nombres descriptivos.
 Organización clara de la información.
 Estructuración jerárquica de los datos.
 Preparación del dominio para migración posterior a SQLite.
+
 ⚙️ Tecnologías utilizadas
 JSON
 Git
 GitHub
+
 📌 Nota
 
 Esta semana permitió comprender la estructura de los datos antes de iniciar la implementación en SQL y SQLite.
