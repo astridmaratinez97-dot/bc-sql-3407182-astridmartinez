@@ -31,6 +31,6 @@ Git
 GitHub
 ▶️ Ejecución
 sqlite3 SENA.db < semana4.sql
-📌 Nota
 
+📌 Nota
 Esta semana permitió comprender cómo consultar y visualizar información almacenada en bases de datos relacionales.
