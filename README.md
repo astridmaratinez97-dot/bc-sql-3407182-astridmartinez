@@ -32,6 +32,7 @@ SQLite
 SQL
 Git
 GitHub
+
 ▶️ Ejecución
 sqlite3 SENA.db < semana4.sql
 
