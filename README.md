@@ -12,18 +12,22 @@ IN
 LIKE
 Filtros combinados
 ORDER BY
+
 🧠 Buenas prácticas aplicadas
 Consultas semánticamente coherentes.
 Filtrado eficiente.
 Uso adecuado de patrones de búsqueda.
 Código SQL organizado.
+
 ⚙️ Tecnologías utilizadas
 SQLite
 SQL
 Git
 GitHub
+
 ▶️ Ejecución
 sqlite3 SENA.db < semana5.sql
 
 📌 Nota
+
 Esta semana estuvo enfocada en la búsqueda y filtrado de información utilizando operadores especializados.
