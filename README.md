@@ -12,6 +12,7 @@ apprentices
 programs
 instructors
 competencies
+
 ⚙️ Consultas realizadas
 SELECT
 WHERE
@@ -19,11 +20,13 @@ ORDER BY
 LIMIT
 Alias de columnas
 Filtrado por condiciones
+
 🧠 Buenas prácticas aplicadas
 Selección explícita de columnas.
 Evitar SELECT *.
 Consultas legibles y comentadas.
 Uso adecuado de alias.
+
 ⚙️ Tecnologías utilizadas
 SQLite
 SQL
